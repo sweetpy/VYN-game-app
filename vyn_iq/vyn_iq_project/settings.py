@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     "task_management",
     "idea_forge",
     "staff_management",
-    "finance",
 ]
 
 MIDDLEWARE = [

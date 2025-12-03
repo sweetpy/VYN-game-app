@@ -11,9 +11,8 @@ import IdeaForge from './components/IdeaForge/IdeaForge';
 import ExecutionPipeline from './components/ExecutionPipeline/ExecutionPipeline';
 import StaffManagement from './components/StaffManagement/StaffManagement';
 import BusinessControlCenter from './components/BusinessControlCenter/BusinessControlCenter';
-import FinanceBrain from './components/FinanceBrain/FinanceBrain';
 
-type View = 'MAIN_SCREEN' | 'AI_BRAIN' | 'TASK_MANAGER' | 'IDEA_FORGE' | 'EXECUTION_PIPELINE' | 'STAFF_MANAGEMENT' | 'BUSINESS_CONTROL_CENTER' | 'FINANCE_BRAIN';
+type View = 'MAIN_SCREEN' | 'AI_BRAIN' | 'TASK_MANAGER' | 'IDEA_FORGE' | 'EXECUTION_PIPELINE' | 'STAFF_MANAGEMENT' | 'BUSINESS_CONTROL_CENTER';
 
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<View>('MAIN_SCREEN');
@@ -48,8 +47,6 @@ const App: React.FC = () => {
         return <StaffManagement />;
       case 'BUSINESS_CONTROL_CENTER':
         return <BusinessControlCenter businessId={selectedBusinessId!} onBack={handleBackToMain} />;
-      case 'FINANCE_BRAIN':
-        return <FinanceBrain />;
       default:
         return <MainScreen onSelectBusiness={handleSelectBusiness} />;
     }
@@ -66,7 +63,7 @@ const App: React.FC = () => {
         toggleStaffManagement={() => handleSetView('STAFF_MANAGEMENT')}
       />
       {renderContent()}
-      <BottomRightMenu toggleFinanceBrain={() => handleSetView('FINANCE_BRAIN')} />
+      <BottomRightMenu />
     </div>
   );
 };

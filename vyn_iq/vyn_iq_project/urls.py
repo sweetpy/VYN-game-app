@@ -8,5 +8,4 @@ urlpatterns = [
     path('api/tasks/', include('task_management.urls')),
     path('api/ideas/', include('idea_forge.urls')),
     path('api/staff/', include('staff_management.urls')),
-    path('api/finance/', include('finance.urls')),
 ]

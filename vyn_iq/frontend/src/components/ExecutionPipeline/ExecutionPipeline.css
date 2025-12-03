@@ -1,0 +1,29 @@
+.execution-pipeline {
+  padding: 20px;
+}
+
+.kanban-board {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+}
+
+.kanban-column {
+  flex: 1;
+  min-width: 200px;
+  background-color: #3a3a3a;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.kanban-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.kanban-card {
+  padding: 10px;
+  background-color: #555;
+  border-radius: 5px;
+}

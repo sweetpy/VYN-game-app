@@ -1,15 +1,38 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './MainScreen.css';
 
-const MainScreen: React.FC = () => {
+interface Business {
+  id: number;
+  name: string;
+}
+
+interface MainScreenProps {
+  onSelectBusiness: (businessId: number) => void;
+}
+
+const MainScreen: React.FC<MainScreenProps> = ({ onSelectBusiness }) => {
+  const [businesses, setBusinesses] = useState<Business[]>([]);
+
+  useEffect(() => {
+    axios.get('/api/businesses/')
+      .then(response => {
+        setBusinesses(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching businesses:', error);
+      });
+  }, []);
+
   return (
     <div className="main-screen">
       <h1>Welcome to VYN IQ</h1>
       <div className="buildings">
-        <div className="building">Safari Surf</div>
-        <div className="building">BodaVolt</div>
-        <div className="building">Nest</div>
-        <div className="building">Tanzanite Tea</div>
+        {businesses.map(business => (
+          <div key={business.id} className="building" onClick={() => onSelectBusiness(business.id)}>
+            {business.name}
+          </div>
+        ))}
       </div>
       <div className="journal">
         <button>📖 Journal</button>

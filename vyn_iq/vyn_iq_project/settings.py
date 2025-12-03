@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     "ai_engine",
     "task_management",
     "idea_forge",
+    "staff_management",
+    "finance",
 ]
 
 MIDDLEWARE = [

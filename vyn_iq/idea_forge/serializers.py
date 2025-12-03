@@ -7,6 +7,13 @@ class IdeaSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ProjectSerializer(serializers.ModelSerializer):
+    idea = IdeaSerializer()
+
+    class Meta:
+        model = Project
+        fields = '__all__'
+
+class ProjectCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
         fields = '__all__'

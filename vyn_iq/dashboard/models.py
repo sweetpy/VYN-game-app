@@ -8,6 +8,9 @@ class Business(models.Model):
     cashflow = models.DecimalField(max_digits=12, decimal_places=2, default=0.00)
     runway = models.IntegerField(default=0)  # in days
     health_score = models.IntegerField(default=100) # 0-100
+    profit = models.DecimalField(max_digits=12, decimal_places=2, default=0.00)
+    margins = models.DecimalField(max_digits=5, decimal_places=2, default=0.00)
+    orders = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name

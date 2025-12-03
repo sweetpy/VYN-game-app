@@ -9,52 +9,64 @@ import AI_Brain from './components/AI_Brain/AI_Brain';
 import TaskManager from './components/TaskManager/TaskManager';
 import IdeaForge from './components/IdeaForge/IdeaForge';
 import ExecutionPipeline from './components/ExecutionPipeline/ExecutionPipeline';
+import StaffManagement from './components/StaffManagement/StaffManagement';
+import BusinessControlCenter from './components/BusinessControlCenter/BusinessControlCenter';
+import FinanceBrain from './components/FinanceBrain/FinanceBrain';
+
+type View = 'MAIN_SCREEN' | 'AI_BRAIN' | 'TASK_MANAGER' | 'IDEA_FORGE' | 'EXECUTION_PIPELINE' | 'STAFF_MANAGEMENT' | 'BUSINESS_CONTROL_CENTER' | 'FINANCE_BRAIN';
 
 const App: React.FC = () => {
-  const [showAIBrain, setShowAIBrain] = useState(false);
-  const [showTaskManager, setShowTaskManager] = useState(false);
-  const [showIdeaForge, setShowIdeaForge] = useState(false);
-  const [showExecutionPipeline, setShowExecutionPipeline] = useState(false);
+  const [currentView, setCurrentView] = useState<View>('MAIN_SCREEN');
+  const [selectedBusinessId, setSelectedBusinessId] = useState<number | null>(null);
 
-  const toggleAIBrain = () => {
-    setShowAIBrain(!showAIBrain);
-    setShowTaskManager(false);
-    setShowIdeaForge(false);
-    setShowExecutionPipeline(false);
+  const handleSetView = (view: View) => {
+    setCurrentView(view);
+    setSelectedBusinessId(null);
   };
 
-  const toggleTaskManager = () => {
-    setShowTaskManager(!showTaskManager);
-    setShowAIBrain(false);
-    setShowIdeaForge(false);
-    setShowExecutionPipeline(false);
+  const handleSelectBusiness = (businessId: number) => {
+    setSelectedBusinessId(businessId);
+    setCurrentView('BUSINESS_CONTROL_CENTER');
   };
 
-  const toggleIdeaForge = () => {
-    setShowIdeaForge(!showIdeaForge);
-    setShowAIBrain(false);
-    setShowTaskManager(false);
-    setShowExecutionPipeline(false);
-  };
+  const handleBackToMain = () => {
+    setCurrentView('MAIN_SCREEN');
+    setSelectedBusinessId(null);
+  }
 
-  const toggleExecutionPipeline = () => {
-    setShowExecutionPipeline(!showExecutionPipeline);
-    setShowAIBrain(false);
-    setShowTaskManager(false);
-    setShowIdeaForge(false);
+  const renderContent = () => {
+    switch (currentView) {
+      case 'AI_BRAIN':
+        return <AI_Brain />;
+      case 'TASK_MANAGER':
+        return <TaskManager />;
+      case 'IDEA_FORGE':
+        return <IdeaForge />;
+      case 'EXECUTION_PIPELINE':
+        return <ExecutionPipeline />;
+      case 'STAFF_MANAGEMENT':
+        return <StaffManagement />;
+      case 'BUSINESS_CONTROL_CENTER':
+        return <BusinessControlCenter businessId={selectedBusinessId!} onBack={handleBackToMain} />;
+      case 'FINANCE_BRAIN':
+        return <FinanceBrain />;
+      default:
+        return <MainScreen onSelectBusiness={handleSelectBusiness} />;
+    }
   };
 
   return (
     <div className="App">
       <TopBar />
-      <LeftSideBar toggleTaskManager={toggleTaskManager} />
+      <LeftSideBar toggleTaskManager={() => handleSetView('TASK_MANAGER')} />
       <RightSideBar
-        toggleAIBrain={toggleAIBrain}
-        toggleIdeaForge={toggleIdeaForge}
-        toggleExecutionPipeline={toggleExecutionPipeline}
+        toggleAIBrain={() => handleSetView('AI_BRAIN')}
+        toggleIdeaForge={() => handleSetView('IDEA_FORGE')}
+        toggleExecutionPipeline={() => handleSetView('EXECUTION_PIPELINE')}
+        toggleStaffManagement={() => handleSetView('STAFF_MANAGEMENT')}
       />
-      {showAIBrain ? <AI_Brain /> : showTaskManager ? <TaskManager /> : showIdeaForge ? <IdeaForge /> : showExecutionPipeline ? <ExecutionPipeline /> : <MainScreen />}
-      <BottomRightMenu />
+      {renderContent()}
+      <BottomRightMenu toggleFinanceBrain={() => handleSetView('FINANCE_BRAIN')} />
     </div>
   );
 };

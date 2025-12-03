@@ -1,0 +1,28 @@
+.staff-management {
+  padding: 20px;
+}
+
+.staff-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.staff-form input, .staff-form textarea, .staff-form select {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.staff-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.staff-member {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}

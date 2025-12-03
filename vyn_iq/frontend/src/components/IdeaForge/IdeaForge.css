@@ -1,0 +1,28 @@
+.idea-forge {
+  padding: 20px;
+}
+
+.idea-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.idea-form input, .idea-form textarea {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.ideas {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.idea {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}

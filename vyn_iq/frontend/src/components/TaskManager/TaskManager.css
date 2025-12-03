@@ -1,0 +1,20 @@
+.task-manager {
+  padding: 20px;
+}
+
+.tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.task {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.task.completed {
+  background-color: #3a3a3a;
+  text-decoration: line-through;
+}

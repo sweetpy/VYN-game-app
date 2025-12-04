@@ -1,0 +1,18 @@
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #1a1a1a;
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.empire-stats, .ai-insights, .action-points {
+  display: flex;
+  gap: 20px;
+}

@@ -1,0 +1,15 @@
+.ai-brain {
+  padding: 20px;
+}
+
+.recommendations {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.recommendation {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}

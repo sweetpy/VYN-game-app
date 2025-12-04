@@ -1,0 +1,29 @@
+.business-control-center {
+  padding: 20px;
+}
+
+.kpis {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.kpi {
+  flex: 1;
+  padding: 20px;
+  background-color: #3a3a3a;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.staff-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.staff-member {
+  padding: 10px;
+  background-color: #555;
+  border-radius: 5px;
+}

@@ -11,8 +11,11 @@ import IdeaForge from './components/IdeaForge/IdeaForge';
 import ExecutionPipeline from './components/ExecutionPipeline/ExecutionPipeline';
 import StaffManagement from './components/StaffManagement/StaffManagement';
 import BusinessControlCenter from './components/BusinessControlCenter/BusinessControlCenter';
+import FinanceBrain from './components/FinanceBrain/FinanceBrain';
+import DailyLabs from './components/DailyLabs/DailyLabs';
+import Journal from './components/Journal/Journal';
 
-type View = 'MAIN_SCREEN' | 'AI_BRAIN' | 'TASK_MANAGER' | 'IDEA_FORGE' | 'EXECUTION_PIPELINE' | 'STAFF_MANAGEMENT' | 'BUSINESS_CONTROL_CENTER';
+type View = 'MAIN_SCREEN' | 'AI_BRAIN' | 'TASK_MANAGER' | 'IDEA_FORGE' | 'EXECUTION_PIPELINE' | 'STAFF_MANAGEMENT' | 'BUSINESS_CONTROL_CENTER' | 'FINANCE_BRAIN' | 'DAILY_LABS' | 'JOURNAL';
 
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<View>('MAIN_SCREEN');
@@ -47,15 +50,24 @@ const App: React.FC = () => {
         return <StaffManagement />;
       case 'BUSINESS_CONTROL_CENTER':
         return <BusinessControlCenter businessId={selectedBusinessId!} onBack={handleBackToMain} />;
+      case 'FINANCE_BRAIN':
+        return <FinanceBrain />;
+      case 'DAILY_LABS':
+        return <DailyLabs />;
+      case 'JOURNAL':
+        return <Journal />;
       default:
-        return <MainScreen onSelectBusiness={handleSelectBusiness} />;
+        return <MainScreen onSelectBusiness={handleSelectBusiness} onSelectJournal={() => handleSetView('JOURNAL')} />;
     }
   };
 
   return (
     <div className="App">
       <TopBar />
-      <LeftSideBar toggleTaskManager={() => handleSetView('TASK_MANAGER')} />
+      <LeftSideBar
+        toggleTaskManager={() => handleSetView('TASK_MANAGER')}
+        toggleDailyLabs={() => handleSetView('DAILY_LABS')}
+      />
       <RightSideBar
         toggleAIBrain={() => handleSetView('AI_BRAIN')}
         toggleIdeaForge={() => handleSetView('IDEA_FORGE')}
@@ -63,7 +75,7 @@ const App: React.FC = () => {
         toggleStaffManagement={() => handleSetView('STAFF_MANAGEMENT')}
       />
       {renderContent()}
-      <BottomRightMenu />
+      <BottomRightMenu toggleFinanceBrain={() => handleSetView('FINANCE_BRAIN')} />
     </div>
   );
 };

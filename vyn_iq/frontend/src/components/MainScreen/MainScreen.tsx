@@ -9,9 +9,10 @@ interface Business {
 
 interface MainScreenProps {
   onSelectBusiness: (businessId: number) => void;
+  onSelectJournal: () => void;
 }
 
-const MainScreen: React.FC<MainScreenProps> = ({ onSelectBusiness }) => {
+const MainScreen: React.FC<MainScreenProps> = ({ onSelectBusiness, onSelectJournal }) => {
   const [businesses, setBusinesses] = useState<Business[]>([]);
 
   useEffect(() => {
@@ -35,7 +36,7 @@ const MainScreen: React.FC<MainScreenProps> = ({ onSelectBusiness }) => {
         ))}
       </div>
       <div className="journal">
-        <button>📖 Journal</button>
+        <button onClick={onSelectJournal}>📖 Journal</button>
       </div>
     </div>
   );

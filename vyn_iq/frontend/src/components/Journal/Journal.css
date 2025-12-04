@@ -1,0 +1,32 @@
+.journal-container {
+  padding: 20px;
+}
+
+.journal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.journal-form input, .journal-form textarea {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.journal-entries {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.journal-entry {
+  padding: 15px;
+  background-color: #3a3a3a;
+  border-radius: 8px;
+}
+
+.journal-entry small {
+  color: #aaa;
+}

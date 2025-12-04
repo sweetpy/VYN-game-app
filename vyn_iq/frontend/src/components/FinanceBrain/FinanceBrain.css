@@ -1,0 +1,54 @@
+.finance-brain {
+  padding: 20px;
+}
+
+.finance-columns {
+  display: flex;
+  gap: 20px;
+}
+
+.column {
+  flex: 1;
+  background-color: #2a2a2a;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.transaction-form, .debt-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.transaction-form input, .transaction-form select, .debt-form input {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.transactions-list, .debts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.transaction, .debt {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.transaction.income {
+  background-color: #28a745; /* Green for income */
+}
+
+.transaction.expense {
+  background-color: #dc3545; /* Red for expense */
+}
+
+.debt {
+  background-color: #ffc107; /* Yellow for debt */
+  color: #333;
+}

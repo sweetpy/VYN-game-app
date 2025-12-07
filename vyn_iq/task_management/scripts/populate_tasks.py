@@ -1,11 +1,6 @@
-from django.contrib.auth.models import User
 from task_management.models import Task
 
 def run():
-    user = User.objects.first()
-    if not user:
-        user = User.objects.create_user('testuser', 'test@test.com', 'testpassword')
-
     Task.objects.all().delete()
 
     tasks = [
@@ -15,6 +10,6 @@ def run():
     ]
 
     for task_data in tasks:
-        Task.objects.create(user=user, **task_data)
+        Task.objects.create(**task_data)
 
     print("Tasks populated successfully!")

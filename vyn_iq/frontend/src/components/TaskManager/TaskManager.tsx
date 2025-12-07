@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from '../axiosConfig';
+import axios from 'axios';
 import './TaskManager.css';
 
 interface Task {
@@ -13,24 +13,14 @@ const TaskManager: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
 
   useEffect(() => {
-    fetchTasks();
-  }, []);
-
-  const fetchTasks = ()_=> {
     axios.get('/api/tasks/')
-      .then(response => setTasks(response.data))
-      .catch(error => console.error('Error fetching tasks:', error));
-  };
-
-  const handleCompleteTask = (taskId: number) => {
-    axios.patch(`/api/tasks/${taskId}/`, { completed: true })
-      .then(() => {
-        // For now, just refetch tasks. A more advanced implementation
-        // would also trigger an XP update.
-        fetchTasks();
+      .then(response => {
+        setTasks(response.data);
       })
-      .catch(error => console.error('Error completing task:', error));
-  };
+      .catch(error => {
+        console.error('Error fetching tasks:', error);
+      });
+  }, []);
 
   return (
     <div className="task-manager">
@@ -40,9 +30,6 @@ const TaskManager: React.FC = () => {
           <div key={task.id} className={`task ${task.completed ? 'completed' : ''}`}>
             <h3>{task.title}</h3>
             <p>{task.description}</p>
-            {!task.completed && (
-              <button onClick={() => handleCompleteTask(task.id)}>Complete Task</button>
-            )}
           </div>
         ))}
       </div>

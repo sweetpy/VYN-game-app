@@ -1,13 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import './LeftSideBar.css';
 
-const LeftSideBar: React.FC = () => {
+interface LeftSideBarProps {
+  toggleTaskManager: () => void;
+  toggleDailyLabs: () => void;
+}
+
+const LeftSideBar: React.FC<LeftSideBarProps> = ({ toggleTaskManager, toggleDailyLabs }) => {
   return (
     <div className="left-side-bar">
-      <Link to="/tasks"><button>✅ Tasks</button></Link>
-      <Link to="/labs"><button>🔬 Lab</button></Link>
-      <Link to="/labs"><button>💸 25K Challenge</button></Link>
+      <button onClick={toggleTaskManager}>✅ Tasks</button>
+      <button onClick={toggleDailyLabs}>🔬 Lab</button>
+      <button onClick={toggleDailyLabs}>💸 25K Challenge</button>
     </div>
   );
 };

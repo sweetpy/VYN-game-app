@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import axios from '../axiosConfig';
+import axios from 'axios';
 import './BusinessControlCenter.css';
 
 interface Business {
@@ -25,27 +24,29 @@ interface Transaction {
     date: string;
 }
 
-const BusinessControlCenter: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+interface BusinessControlCenterProps {
+  businessId: number;
+  onBack: () => void;
+}
+
+const BusinessControlCenter: React.FC<BusinessControlCenterProps> = ({ businessId, onBack }) => {
   const [business, setBusiness] = useState<Business | null>(null);
   const [staff, setStaff] = useState<Staff[]>([]);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
 
   useEffect(() => {
-    if (id) {
-        axios.get(`/api/businesses/${id}/`)
-          .then(response => setBusiness(response.data))
-          .catch(error => console.error('Error fetching business details:', error));
+    axios.get(`/api/businesses/${businessId}/`)
+      .then(response => setBusiness(response.data))
+      .catch(error => console.error('Error fetching business details:', error));
 
-        axios.get(`/api/staff/staff/?business=${id}`)
-          .then(response => setStaff(response.data))
-          .catch(error => console.error('Error fetching staff for business:', error));
+    axios.get(`/api/staff/staff/?business=${businessId}`)
+      .then(response => setStaff(response.data))
+      .catch(error => console.error('Error fetching staff for business:', error));
 
-        axios.get(`/api/finance/transactions/?business=${id}`)
-          .then(response => setTransactions(response.data))
-          .catch(error => console.error('Error fetching transactions for business:', error));
-    }
-  }, [id]);
+    axios.get(`/api/finance/transactions/?business=${businessId}`)
+      .then(response => setTransactions(response.data))
+      .catch(error => console.error('Error fetching transactions for business:', error));
+  }, [businessId]);
 
   if (!business) {
     return <div>Loading...</div>;
@@ -53,7 +54,7 @@ const BusinessControlCenter: React.FC = () => {
 
   return (
     <div className="business-control-center">
-      <Link to="/"><button>&larr; Back to Main Screen</button></Link>
+      <button onClick={onBack}>&larr; Back to Main Screen</button>
       <h2>{business.name} Control Center</h2>
       <div className="kpis">
         <div className="kpi">

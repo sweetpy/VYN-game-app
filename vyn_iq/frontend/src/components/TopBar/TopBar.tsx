@@ -1,36 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import axios from '../axiosConfig';
+import axios from 'axios';
 import './TopBar.css';
 
 interface Business {
   id: number;
   name: string;
   worth: number;
-}
-
-interface EmpireState {
-  id: number;
-  empire_score: number;
-  level: number;
-  xp: number;
+  bank_balance: number;
+  cashflow: number;
 }
 
 const TopBar: React.FC = () => {
   const [businesses, setBusinesses] = useState<Business[]>([]);
-  const [empireState, setEmpireState] = useState<EmpireState | null>(null);
 
   useEffect(() => {
     axios.get('/api/businesses/')
-      .then(response => setBusinesses(response.data))
-      .catch(error => console.error('Error fetching businesses:', error));
-
-    axios.get('/api/gamification/empire-state/')
       .then(response => {
-        if (response.data.length > 0) {
-          setEmpireState(response.data[0]);
-        }
+        setBusinesses(response.data);
       })
-      .catch(error => console.error('Error fetching empire state:', error));
+      .catch(error => {
+        console.error('Error fetching businesses:', error);
+      });
   }, []);
 
   const totalEmpireValue = businesses.reduce((total, business) => total + business.worth, 0);
@@ -39,15 +29,14 @@ const TopBar: React.FC = () => {
     <div className="top-bar">
       <div className="empire-stats">
         <span>💰 Total Empire Value: ${totalEmpireValue.toLocaleString()}</span>
-        {empireState && (
-          <>
-            <span>🏆 Empire Score: {empireState.empire_score}</span>
-            <span>⭐ Level: {empireState.level} (XP: {empireState.xp})</span>
-          </>
-        )}
+        <span>📊 Net Worth</span>
+        <span>💵 Daily Profit</span>
       </div>
       <div className="ai-insights">
         <span>🧠 AI Insights alert</span>
+      </div>
+      <div className="action-points">
+        <span>💎 “Action Points” for daily tasks</span>
       </div>
     </div>
   );

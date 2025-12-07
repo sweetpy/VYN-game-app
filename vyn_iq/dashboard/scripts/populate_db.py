@@ -1,11 +1,7 @@
 import random
-from django.contrib.auth.models import User
 from dashboard.models import Business
 
 def run():
-    User.objects.all().delete()
-    user = User.objects.create_user('testuser', 'test@test.com', 'testpassword')
-
     Business.objects.all().delete()
 
     businesses = [
@@ -16,6 +12,6 @@ def run():
     ]
 
     for business_data in businesses:
-        Business.objects.create(user=user, **business_data)
+        Business.objects.create(**business_data)
 
     print("Database populated successfully!")

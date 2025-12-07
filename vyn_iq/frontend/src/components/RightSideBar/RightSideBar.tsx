@@ -1,15 +1,21 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import './RightSideBar.css';
 
-const RightSideBar: React.FC = () => {
+interface RightSideBarProps {
+  toggleAIBrain: () => void;
+  toggleIdeaForge: () => void;
+  toggleExecutionPipeline: () => void;
+  toggleStaffManagement: () => void;
+}
+
+const RightSideBar: React.FC<RightSideBarProps> = ({ toggleAIBrain, toggleIdeaForge, toggleExecutionPipeline, toggleStaffManagement }) => {
   return (
     <div className="right-side-bar">
-      <Link to="/ai-brain"><button>🧠 AI Brain</button></Link>
-      <Link to="/ideas"><button>💡 Ideas</button></Link>
-      <Link to="/pipeline"><button>⚙ Pipeline</button></Link>
-      <Link to="/staff"><button>👥 Staff</button></Link>
-      <Link to="/notifications"><button>🔔 Notifications</button></Link>
+      <button onClick={toggleAIBrain}>🧠 AI Brain</button>
+      <button onClick={toggleIdeaForge}>💡 Ideas</button>
+      <button onClick={toggleExecutionPipeline}>⚙ Pipeline</button>
+      <button onClick={toggleStaffManagement}>👥 Staff</button>
+      <button>🔔 Notifications</button>
     </div>
   );
 };

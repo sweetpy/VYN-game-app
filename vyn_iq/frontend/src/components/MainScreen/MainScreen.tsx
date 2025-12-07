@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from '../../axiosConfig';
-import { Link } from 'react-router-dom';
+import axios from 'axios';
 import './MainScreen.css';
 
 interface Business {
@@ -8,7 +7,12 @@ interface Business {
   name: string;
 }
 
-const MainScreen: React.FC = () => {
+interface MainScreenProps {
+  onSelectBusiness: (businessId: number) => void;
+  onSelectJournal: () => void;
+}
+
+const MainScreen: React.FC<MainScreenProps> = ({ onSelectBusiness, onSelectJournal }) => {
   const [businesses, setBusinesses] = useState<Business[]>([]);
 
   useEffect(() => {
@@ -26,15 +30,13 @@ const MainScreen: React.FC = () => {
       <h1>Welcome to VYN IQ</h1>
       <div className="buildings">
         {businesses.map(business => (
-          <Link to={`/business/${business.id}`} key={business.id}>
-            <div className="building">
-              {business.name}
-            </div>
-          </Link>
+          <div key={business.id} className="building" onClick={() => onSelectBusiness(business.id)}>
+            {business.name}
+          </div>
         ))}
       </div>
       <div className="journal">
-        <Link to="/journal"><button>📖 Journal</button></Link>
+        <button onClick={onSelectJournal}>📖 Journal</button>
       </div>
     </div>
   );

@@ -1,12 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import './BottomRightMenu.css';
 
-const BottomRightMenu: React.FC = () => {
+interface BottomRightMenuProps {
+  toggleFinanceBrain: () => void;
+}
+
+const BottomRightMenu: React.FC<BottomRightMenuProps> = ({ toggleFinanceBrain }) => {
   return (
     <div className="bottom-right-menu">
-      <Link to="/"><button>🏢 Businesses</button></Link>
-      <Link to="/finance"><button>📘 Finance</button></Link>
+      <button>🏢 Businesses</button>
+      <button onClick={toggleFinanceBrain}>📘 Finance</button>
     </div>
   );
 };

@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
-import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -21,10 +20,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-u_4u*8@wr3r_tw%7(e@(qs0@0_d-7iy&1ff==^nxl-j3bselrf')
+SECRET_KEY = "django-insecure-u_4u*8@wr3r_tw%7(e@(qs0@0_d-7iy&1ff==^nxl-j3bselrf"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -49,8 +48,6 @@ INSTALLED_APPS = [
     "finance",
     "daily_labs",
     "journal",
-    "gamification",
-    "notifications",
 ]
 
 MIDDLEWARE = [
@@ -63,12 +60,6 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
-
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
-}
 
 CORS_ORIGIN_ALLOW_ALL = True
 

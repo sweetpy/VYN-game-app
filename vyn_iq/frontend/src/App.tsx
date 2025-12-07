@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import axios from './axiosConfig';
+import React, { useState } from 'react';
 import './App.css';
 import TopBar from './components/TopBar/TopBar';
 import RightSideBar from './components/RightSideBar/RightSideBar';
@@ -16,60 +14,69 @@ import BusinessControlCenter from './components/BusinessControlCenter/BusinessCo
 import FinanceBrain from './components/FinanceBrain/FinanceBrain';
 import DailyLabs from './components/DailyLabs/DailyLabs';
 import Journal from './components/Journal/Journal';
-import Login from './components/Login/Login';
-import Achievements from './components/Achievements/Achievements';
-import Notifications from './components/Notifications/Notifications';
 
-interface Notification {
-  id: number;
-  read: boolean;
-}
+type View = 'MAIN_SCREEN' | 'AI_BRAIN' | 'TASK_MANAGER' | 'IDEA_FORGE' | 'EXECUTION_PIPELINE' | 'STAFF_MANAGEMENT' | 'BUSINESS_CONTROL_CENTER' | 'FINANCE_BRAIN' | 'DAILY_LABS' | 'JOURNAL';
 
 const App: React.FC = () => {
-  const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [currentView, setCurrentView] = useState<View>('MAIN_SCREEN');
+  const [selectedBusinessId, setSelectedBusinessId] = useState<number | null>(null);
 
-  useEffect(() => {
-    // Fetch notifications periodically to update the indicator
-    const interval = setInterval(fetchNotifications, 5000); // every 5 seconds
-    fetchNotifications(); // Initial fetch
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const fetchNotifications = () => {
-    axios.get('/api/notifications/')
-      .then(response => setNotifications(response.data))
-      .catch(error => console.error('Error fetching notifications:', error));
+  const handleSetView = (view: View) => {
+    setCurrentView(view);
+    setSelectedBusinessId(null);
   };
 
-  const unreadCount = notifications.filter(n => !n.read).length;
+  const handleSelectBusiness = (businessId: number) => {
+    setSelectedBusinessId(businessId);
+    setCurrentView('BUSINESS_CONTROL_CENTER');
+  };
+
+  const handleBackToMain = () => {
+    setCurrentView('MAIN_SCREEN');
+    setSelectedBusinessId(null);
+  }
+
+  const renderContent = () => {
+    switch (currentView) {
+      case 'AI_BRAIN':
+        return <AI_Brain />;
+      case 'TASK_MANAGER':
+        return <TaskManager />;
+      case 'IDEA_FORGE':
+        return <IdeaForge />;
+      case 'EXECUTION_PIPELINE':
+        return <ExecutionPipeline />;
+      case 'STAFF_MANAGEMENT':
+        return <StaffManagement />;
+      case 'BUSINESS_CONTROL_CENTER':
+        return <BusinessControlCenter businessId={selectedBusinessId!} onBack={handleBackToMain} />;
+      case 'FINANCE_BRAIN':
+        return <FinanceBrain />;
+      case 'DAILY_LABS':
+        return <DailyLabs />;
+      case 'JOURNAL':
+        return <Journal />;
+      default:
+        return <MainScreen onSelectBusiness={handleSelectBusiness} onSelectJournal={() => handleSetView('JOURNAL')} />;
+    }
+  };
 
   return (
-    <Router>
-      <div className="App">
-        <TopBar />
-        <LeftSideBar />
-        <RightSideBar unreadNotifications={unreadCount} />
-        <BottomRightMenu />
-        <div className="main-content">
-          <Routes>
-            <Route path="/" element={<MainScreen />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/ai-brain" element={<AI_Brain />} />
-            <Route path="/tasks" element={<TaskManager />} />
-            <Route path="/ideas" element={<IdeaForge />} />
-            <Route path="/pipeline" element={<ExecutionPipeline />} />
-            <Route path="/staff" element={<StaffManagement />} />
-            <Route path="/business/:id" element={<BusinessControlCenter />} />
-            <Route path="/finance" element={<FinanceBrain />} />
-            <Route path="/labs" element={<DailyLabs />} />
-            <Route path="/journal" element={<Journal />} />
-            <Route path="/achievements" element={<Achievements />} />
-            <Route path="/notifications" element={<Notifications />} />
-          </Routes>
-        </div>
-      </div>
-    </Router>
+    <div className="App">
+      <TopBar />
+      <LeftSideBar
+        toggleTaskManager={() => handleSetView('TASK_MANAGER')}
+        toggleDailyLabs={() => handleSetView('DAILY_LABS')}
+      />
+      <RightSideBar
+        toggleAIBrain={() => handleSetView('AI_BRAIN')}
+        toggleIdeaForge={() => handleSetView('IDEA_FORGE')}
+        toggleExecutionPipeline={() => handleSetView('EXECUTION_PIPELINE')}
+        toggleStaffManagement={() => handleSetView('STAFF_MANAGEMENT')}
+      />
+      {renderContent()}
+      <BottomRightMenu toggleFinanceBrain={() => handleSetView('FINANCE_BRAIN')} />
+    </div>
   );
 };
 

@@ -1,11 +1,6 @@
-from django.contrib.auth.models import User
 from ai_engine.models import Recommendation
 
 def run():
-    user = User.objects.first()
-    if not user:
-        user = User.objects.create_user('testuser', 'test@test.com', 'testpassword')
-
     Recommendation.objects.all().delete()
 
     recommendations = [
@@ -15,6 +10,6 @@ def run():
     ]
 
     for rec_data in recommendations:
-        Recommendation.objects.create(user=user, **rec_data)
+        Recommendation.objects.create(**rec_data)
 
     print("Recommendations populated successfully!")

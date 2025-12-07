@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from '../../axiosConfig';
+import axios from 'axios';
 import './AI_Brain.css';
 
 interface Recommendation {

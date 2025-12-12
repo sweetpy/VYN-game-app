@@ -1,0 +1,22 @@
+.main-screen {
+  padding-top: 80px; /* To avoid content being hidden behind the top bar */
+  padding-left: 120px;
+  padding-right: 120px;
+  text-align: center;
+}
+
+.buildings {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 50px;
+}
+
+.building {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.journal {
+  margin-top: 50px;
+}
